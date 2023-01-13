@@ -1,8 +1,9 @@
 import { MouseEvent, useState } from 'react'
-import { Todo } from './TodoContainer'
-import FilterButtons from './FilterButtons'
-import TodoItem from './TodoItem'
 import Select from 'react-select'
+import FilterButtons from './FilterButtons'
+import { Todo } from './TodoContainer'
+import TodoItem from './TodoItem'
+import { AnimatePresence, motion } from 'framer-motion'
 
 interface TodoListProps {
   todos: Todo[]
@@ -37,12 +38,10 @@ const TodoList = ({ todos, deleteTodo, toggleCompleted, toggleFavorite }: TodoLi
     { value: 'new', label: 'Sort by', isDisabled: true },
     { value: 'new', label: 'New' },
     { value: 'old', label: 'Old' },
-    { value: 'completed', label: 'Completed first' },
-    { value: 'active', label: 'Active first' },
   ]
 
   return (
-    <div className='my-3 h-[85vh] overflow-y-auto rounded-md'>
+    <div className='mt-5 mb-20 rounded-md'>
       <Select
         className='rs-container'
         classNamePrefix='rs'
@@ -52,10 +51,17 @@ const TodoList = ({ todos, deleteTodo, toggleCompleted, toggleFavorite }: TodoLi
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         onChange={(option) => setSort(option!.value)}
       />
-      <li className='flex list-none justify-between border-b border-zinc-700/50 p-3 transition last:border-none first:hover:rounded-t-md last:hover:rounded-b-md'>
-        <strong>
+      <li className='flex list-none flex-wrap justify-between gap-6 border-b border-zinc-700/50 p-3 transition last:border-none first:hover:rounded-t-md last:hover:rounded-b-md'>
+        <span className='flex-1 basis-32'>
           All tasks {completedTodos.length}/{todos.length}
-        </strong>
+          <div className='my-2 h-1.5 w-full rounded-full bg-gray-200 dark:bg-gray-700'>
+            <div
+              className='h-1.5 rounded-full dark:bg-indigo-500'
+              style={{ width: `${(completedTodos.length / todos.length) * 100}%` }}
+            ></div>
+          </div>
+        </span>
+
         <FilterButtons filter={filter} handleSetFilter={handleSetFilter} />
       </li>
       {todos.length === 0 ? (
@@ -63,15 +69,25 @@ const TodoList = ({ todos, deleteTodo, toggleCompleted, toggleFavorite }: TodoLi
           📃 No tasks!
         </li>
       ) : null}
-      {sortedTodos.map((todo) => (
-        <TodoItem
-          key={todo.id}
-          todo={todo}
-          deleteTodo={deleteTodo}
-          toggleCompleted={toggleCompleted}
-          toggleFavorite={toggleFavorite}
-        />
-      ))}
+      <AnimatePresence>
+        {sortedTodos.map((todo) => (
+          <motion.div
+            key={todo.id}
+            layout
+            initial={{ transform: 'scale(0)' }}
+            animate={{ transform: 'scale(1)' }}
+            exit={{ transform: 'scale(0)' }}
+          >
+            <TodoItem
+              // key={todo.id}
+              todo={todo}
+              deleteTodo={deleteTodo}
+              toggleCompleted={toggleCompleted}
+              toggleFavorite={toggleFavorite}
+            />
+          </motion.div>
+        ))}
+      </AnimatePresence>
     </div>
   )
 }

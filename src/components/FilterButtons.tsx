@@ -9,7 +9,7 @@ interface FilterButtonsProps {
 const FilterButtons = ({ filter, handleSetFilter }: FilterButtonsProps) => {
   return (
     <>
-      <span className='flex gap-3'>
+      <span className='flex flex-1 justify-between sm:justify-end gap-3'>
         <button
           name='all'
           onClick={handleSetFilter}

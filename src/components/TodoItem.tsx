@@ -1,4 +1,4 @@
-import { Circle, CircleCheck, Star, X } from 'tabler-icons-react'
+import { Circle, CircleCheck, Star, X, ClockHour4} from 'tabler-icons-react'
 import { Todo } from './TodoContainer'
 import { formatDistance } from 'date-fns'
 
@@ -29,7 +29,7 @@ const TodoItem = ({ todo, deleteTodo, toggleCompleted, toggleFavorite }: TodoIte
           </button>
           <div>
             <p className={completed ? 'text-zinc-500 line-through' : undefined}>{body}</p>
-            <small>{timeAgo}</small>
+            <small className='text-zinc-500'><ClockHour4 className='inline' size={16} /> {timeAgo}</small>
           </div>
         </div>
       </div>

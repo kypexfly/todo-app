@@ -22,7 +22,7 @@ const TodoContainer = () => {
     {
       id: Date.UTC(2022, 10, 0, 0, 0, 0, 0),
       body: 'Check the ⭐ to indicate it\'s an important task',
-      completed: false,
+      completed: true,
       favorite: false,
     },
     {
@@ -63,7 +63,7 @@ const TodoContainer = () => {
     toast.info('Deleted task')
   }
   return (
-    <main className='h-full'>
+    <main className='min-h-screen'>
       <TodoForm addTodo={addTodo} />
       <TodoList
         todos={todos}

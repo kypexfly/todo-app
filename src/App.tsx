@@ -10,13 +10,13 @@ function App() {
         </h1>
         <p className='text-xl text-indigo-500'>A quick way to organize your tasks</p>
         <small className='p-2 text-zinc-400'>
-          Don&apos;t worry, we don&apos;t save your tasks. Everything is in your local storage.
+          Don&apos;t worry, we don&apos;t save them. Everything is in your local storage.
         </small>
       </header>
-      <div className='mx-auto min-h-screen max-w-[740px] p-3 lg:p-0'>
+      <div className='mx-auto max-w-[740px] p-3 lg:p-0'>
         <TodoContainer />
       </div>
-      <footer className='m-auto px-2 py-6 text-center'>
+      <footer className='w-full p-2 text-center fixed bottom-0 bg-zinc-800'>
         <a href='https://github.com/kypexfly'>
           <BrandGithub /> Kypexfly
         </a>
