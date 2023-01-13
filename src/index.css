@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-zinc-900 text-zinc-300;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @apply text-zinc-100;
+}
+
+a {
+  @apply inline-flex items-center font-medium text-indigo-600 underline decoration-indigo-400 decoration-2 
+  underline-offset-2 hover:no-underline dark:text-indigo-500 dark:decoration-indigo-600;
+}
+
+.active {
+  @apply inline-flex items-center font-medium text-indigo-600 underline decoration-indigo-400 decoration-2 
+  underline-offset-2 dark:text-indigo-500 dark:decoration-indigo-600;
+}
+
+/* Toastify styling */
+:root {
+  --toastify-color-dark: #27272a;
+}
