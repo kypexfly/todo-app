@@ -16,13 +16,13 @@ h6 {
 }
 
 a {
-  @apply inline-flex items-center font-medium text-indigo-600 underline decoration-indigo-400 decoration-2 
-  underline-offset-2 hover:no-underline dark:text-indigo-500 dark:decoration-indigo-600;
+  @apply inline-flex items-center font-medium underlinedecoration-2 
+  underline-offset-2 hover:no-underline text-indigo-500 decoration-indigo-600;
 }
 
 .active {
-  @apply inline-flex items-center font-medium text-indigo-600 underline decoration-indigo-400 decoration-2 
-  underline-offset-2 dark:text-indigo-500 dark:decoration-indigo-600;
+  @apply inline-flex items-center font-medium underlinedecoration-2 
+  underline-offset-2 text-indigo-500 decoration-indigo-600;
 }
 
 /* Toastify styling */
