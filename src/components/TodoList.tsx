@@ -1,23 +1,20 @@
+import { AnimatePresence, motion } from 'framer-motion'
 import { MouseEvent, useState } from 'react'
 import Select from 'react-select'
+import useAppStore from '../store/useStore'
 import FilterButtons from './FilterButtons'
-import { Todo } from './TodoContainer'
 import TodoItem from './TodoItem'
-import { AnimatePresence, motion } from 'framer-motion'
-
-interface TodoListProps {
-  todos: Todo[]
-  deleteTodo: (id: number) => void
-  toggleCompleted: (id: number) => void
-  toggleFavorite: (id: number) => void
-}
 
 export type FilterState = 'all' | 'completed' | 'active' | 'favorite' | string
 export type SortState = 'new' | 'old' | 'completed' | 'active' | string
 
-const TodoList = ({ todos, deleteTodo, toggleCompleted, toggleFavorite }: TodoListProps) => {
+const TodoList = () => {
+  const todos = useAppStore((state) => state.todos)
+
+  // Local states
   const [filter, setFilter] = useState<FilterState>('all')
   const [sort, setSort] = useState<SortState>('new')
+
   const completedTodos = todos.filter((todo) => todo.completed)
 
   const handleSetFilter = (e: MouseEvent<HTMLButtonElement>) => setFilter(e.currentTarget.name)
@@ -78,13 +75,7 @@ const TodoList = ({ todos, deleteTodo, toggleCompleted, toggleFavorite }: TodoLi
             animate={{ transform: 'scale(1)' }}
             exit={{ transform: 'scale(0)' }}
           >
-            <TodoItem
-              // key={todo.id}
-              todo={todo}
-              deleteTodo={deleteTodo}
-              toggleCompleted={toggleCompleted}
-              toggleFavorite={toggleFavorite}
-            />
+            <TodoItem todo={todo} />
           </motion.div>
         ))}
       </AnimatePresence>

@@ -1,14 +1,12 @@
-import { Todo } from './TodoContainer'
-import { Plus } from 'tabler-icons-react'
 import { FormEvent, useState } from 'react'
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { Plus } from 'tabler-icons-react'
+import { Todo } from '../store/types'
+import useAppStore from '../store/useStore'
 
-interface TodoFormProps {
-  addTodo: (todo: Todo) => void
-}
-
-const TodoForm = ({ addTodo }: TodoFormProps) => {
+const TodoForm = () => {
+  const addTodo = useAppStore((state) => state.addTodo)
   const [input, setInput] = useState<string>('')
 
   const handleAddTodo = (e: FormEvent, todo: Todo) => {

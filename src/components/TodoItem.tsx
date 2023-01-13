@@ -1,16 +1,19 @@
-import { Circle, CircleCheck, Star, X, ClockHour4 } from 'tabler-icons-react'
-import { Todo } from './TodoContainer'
 import { formatDistance } from 'date-fns'
+import { toast } from 'react-toastify'
+import { Circle, CircleCheck, ClockHour4, Star, X } from 'tabler-icons-react'
+import { Todo } from '../store/types'
+import useAppStore from '../store/useStore'
 
-interface TodoItemProps {
-  todo: Todo
-  deleteTodo: (id: number) => void
-  toggleCompleted: (id: number) => void
-  toggleFavorite: (id: number) => void
-}
+const TodoItem = ({ todo }: { todo: Todo }) => {
+  const deleteTodo = useAppStore((state) => state.deleteTodo)
+  const toggleProperty = useAppStore((state) => state.toggleProperty)
+  const handleDeleteTodo = (id: number) => {
+    deleteTodo(id)
+    toast.info('Deleted task')
+  }
 
-const TodoItem = ({ todo, deleteTodo, toggleCompleted, toggleFavorite }: TodoItemProps) => {
   const { id, body, completed, favorite } = todo
+
   const timeAgo = formatDistance(new Date(todo.id), new Date(), { addSuffix: true })
 
   return (
@@ -21,10 +24,13 @@ const TodoItem = ({ todo, deleteTodo, toggleCompleted, toggleFavorite }: TodoIte
             {completed ? (
               <CircleCheck
                 className='text-green-600 hover:text-green-500'
-                onClick={() => toggleCompleted(id)}
+                onClick={() => toggleProperty(id, 'completed')}
               />
             ) : (
-              <Circle className='hover:text-white' onClick={() => toggleCompleted(id)} />
+              <Circle
+                className='hover:text-white'
+                onClick={() => toggleProperty(id, 'completed')}
+              />
             )}
           </button>
           <div>
@@ -37,11 +43,11 @@ const TodoItem = ({ todo, deleteTodo, toggleCompleted, toggleFavorite }: TodoIte
       </div>
       <div className='flex items-center gap-3'>
         <button type='button' title='Delete'>
-          <X size={22} className='hover:text-red-500' onClick={() => deleteTodo(id)} />
+          <X size={22} className='hover:text-red-500' onClick={() => handleDeleteTodo(id)} />
         </button>
         <button type='button' title='Important'>
           <Star
-            onClick={() => toggleFavorite(id)}
+            onClick={() => toggleProperty(id, 'favorite')}
             size={22}
             className={favorite ? 'fill-yellow-500 text-yellow-500' : ''}
           />
