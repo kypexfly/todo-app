@@ -16,7 +16,7 @@ function App() {
       <div className='mx-auto max-w-[740px] p-3 lg:p-0'>
         <TodoContainer />
       </div>
-      <footer className='w-full p-2 text-center fixed bottom-0 bg-zinc-800'>
+      <footer className='w-full p-2 text-center bg-zinc-800'>
         <a href='https://github.com/kypexfly'>
           <BrandGithub /> Kypexfly
         </a>

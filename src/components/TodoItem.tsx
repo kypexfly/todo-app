@@ -1,4 +1,4 @@
-import { Circle, CircleCheck, Star, X, ClockHour4} from 'tabler-icons-react'
+import { Circle, CircleCheck, Star, X, ClockHour4 } from 'tabler-icons-react'
 import { Todo } from './TodoContainer'
 import { formatDistance } from 'date-fns'
 
@@ -29,19 +29,21 @@ const TodoItem = ({ todo, deleteTodo, toggleCompleted, toggleFavorite }: TodoIte
           </button>
           <div>
             <p className={completed ? 'text-zinc-500 line-through' : undefined}>{body}</p>
-            <small className='text-zinc-500'><ClockHour4 className='inline' size={16} /> {timeAgo}</small>
+            <small className='text-zinc-500'>
+              <ClockHour4 className='inline' size={16} /> {timeAgo}
+            </small>
           </div>
         </div>
       </div>
       <div className='flex items-center gap-3'>
-        <button type='button'>
+        <button type='button' title='Delete'>
           <X size={22} className='hover:text-red-500' onClick={() => deleteTodo(id)} />
         </button>
         <button type='button' title='Important'>
           <Star
             onClick={() => toggleFavorite(id)}
             size={22}
-            className={favorite ? 'fill-yellow-500 text-yellow-500' : 'hover:text-yellow-500'}
+            className={favorite ? 'fill-yellow-500 text-yellow-500' : ''}
           />
         </button>
       </div>

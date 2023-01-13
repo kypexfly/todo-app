@@ -52,11 +52,11 @@ const TodoList = ({ todos, deleteTodo, toggleCompleted, toggleFavorite }: TodoLi
         onChange={(option) => setSort(option!.value)}
       />
       <li className='flex list-none flex-wrap justify-between gap-6 border-b border-zinc-700/50 p-3 transition last:border-none first:hover:rounded-t-md last:hover:rounded-b-md'>
-        <span className='flex-1 basis-32'>
+        <span className='flex-1 basis-40'>
           All tasks {completedTodos.length}/{todos.length}
-          <div className='my-2 h-1.5 w-full rounded-full bg-gray-200 dark:bg-gray-700'>
+          <div className='my-2 h-1.5 w-full rounded-full bg-gray-700'>
             <div
-              className='h-1.5 rounded-full dark:bg-indigo-500'
+              className='h-1.5 rounded-full bg-indigo-500'
               style={{ width: `${(completedTodos.length / todos.length) * 100}%` }}
             ></div>
           </div>
