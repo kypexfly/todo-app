@@ -9,8 +9,14 @@ const TodoForm = () => {
   const addTodo = useAppStore((state) => state.addTodo)
   const [input, setInput] = useState<string>('')
 
-  const handleAddTodo = (e: FormEvent, todo: Todo) => {
+  const handleAddTodo = (e: FormEvent) => {
     e.preventDefault()
+    const todo: Todo = {
+      id: Date.now(),
+      body: input,
+      completed: false,
+      favorite: false,
+    }
     if (todo.body === '') {
       toast.warn('Empty, please write a task')
       return
@@ -20,19 +26,9 @@ const TodoForm = () => {
   }
 
   return (
-    <form
-      onSubmit={(e) =>
-        handleAddTodo(e, {
-          id: Date.now(),
-          body: input,
-          completed: false,
-          favorite: false,
-        })
-      }
-      className='relative'
-    >
+    <form onSubmit={(e) => handleAddTodo(e)} className='relative'>
       <input
-        className='inputsearch'
+        className='todo_search'
         placeholder='Add a new task...'
         value={input}
         onChange={(e) => setInput(e.target.value)}
