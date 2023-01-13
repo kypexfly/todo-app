@@ -1,7 +1,8 @@
-import React, { MouseEvent, useState } from 'react'
+import { MouseEvent, useState } from 'react'
 import { Todo } from './TodoContainer'
 import FilterButtons from './FilterButtons'
 import TodoItem from './TodoItem'
+import Select from 'react-select'
 
 interface TodoListProps {
   todos: Todo[]
@@ -11,9 +12,11 @@ interface TodoListProps {
 }
 
 export type FilterState = 'all' | 'completed' | 'active' | 'favorite' | string
+export type SortState = 'new' | 'old' | 'completed' | 'active' | string
 
 const TodoList = ({ todos, deleteTodo, toggleCompleted, toggleFavorite }: TodoListProps) => {
   const [filter, setFilter] = useState<FilterState>('all')
+  const [sort, setSort] = useState<SortState>('new')
   const completedTodos = todos.filter((todo) => todo.completed)
 
   const handleSetFilter = (e: MouseEvent<HTMLButtonElement>) => setFilter(e.currentTarget.name)
@@ -25,8 +28,30 @@ const TodoList = ({ todos, deleteTodo, toggleCompleted, toggleFavorite }: TodoLi
     return todo
   })
 
+  const sortedTodos = filteredTodos.sort((a, b) => {
+    if (sort === 'old') return a.id - b.id
+    return b.id - a.id // sort by New
+  })
+
+  const sortOptions = [
+    { value: 'new', label: 'Sort by', isDisabled: true },
+    { value: 'new', label: 'New' },
+    { value: 'old', label: 'Old' },
+    { value: 'completed', label: 'Completed first' },
+    { value: 'active', label: 'Active first' },
+  ]
+
   return (
-    <div className='my-3 max-h-[85vh] overflow-y-auto rounded-md '>
+    <div className='my-3 h-[85vh] overflow-y-auto rounded-md'>
+      <Select
+        className='rs-container'
+        classNamePrefix='rs'
+        options={sortOptions}
+        defaultValue={sortOptions[0]}
+        isSearchable={false}
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+        onChange={(option) => setSort(option!.value)}
+      />
       <li className='flex list-none justify-between border-b border-zinc-700/50 p-3 transition last:border-none first:hover:rounded-t-md last:hover:rounded-b-md'>
         <strong>
           All tasks {completedTodos.length}/{todos.length}
@@ -38,7 +63,7 @@ const TodoList = ({ todos, deleteTodo, toggleCompleted, toggleFavorite }: TodoLi
           📃 No tasks!
         </li>
       ) : null}
-      {filteredTodos.map((todo) => (
+      {sortedTodos.map((todo) => (
         <TodoItem
           key={todo.id}
           todo={todo}

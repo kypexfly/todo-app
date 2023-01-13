@@ -6,7 +6,6 @@ import TodoList from '../components/TodoList'
 
 export interface Todo {
   id: number
-  title: string
   body: string
   completed: boolean
   favorite: boolean
@@ -15,23 +14,33 @@ export interface Todo {
 const TodoContainer = () => {
   const [todos, setTodos] = useState<Todo[]>([
     {
-      id: Date.UTC(2022, 12, 15),
-      title: 'Title 1',
-      body: '🧹 Buy a new',
+      id: Date.now(),
+      body: 'Don\'t forget to complete this task!',
+      completed: false,
+      favorite: true,
+    },
+    {
+      id: Date.UTC(2022, 10, 0, 0, 0, 0, 0),
+      body: 'Check the ⭐ to indicate it\'s an important task',
+      completed: false,
+      favorite: false,
+    },
+    {
+      id: Date.UTC(2022, 6, 0, 0, 0, 0, 0),
+      body: 'You may want to delete completed tasks by clicking the X',
       completed: true,
       favorite: false,
     },
     {
-      id: Date.UTC(2022, 12, 16),
-      title: 'Title 2',
-      body: '🧺 Buy groceries',
-      completed: false,
-      favorite: true,
+      id: Date.UTC(2022, 0, 0, 0, 0, 0, 0),
+      body: '✨ Hey! this task is already completed',
+      completed: true,
+      favorite: false,
     },
   ])
 
   const addTodo = (newTodo: Todo) => {
-    setTodos([...todos, newTodo])
+    setTodos((todos) => [newTodo, ...todos])
   }
   const toggleCompleted = (id: number) => {
     const updatedTodos = todos.map((todo) => {
@@ -54,7 +63,7 @@ const TodoContainer = () => {
     toast.info('Deleted task')
   }
   return (
-    <main>
+    <main className='h-full'>
       <TodoForm addTodo={addTodo} />
       <TodoList
         todos={todos}

@@ -26,7 +26,6 @@ const TodoForm = ({ addTodo }: TodoFormProps) => {
       onSubmit={(e) =>
         handleAddTodo(e, {
           id: Date.now(),
-          title: input,
           body: input,
           completed: false,
           favorite: false,
@@ -35,7 +34,7 @@ const TodoForm = ({ addTodo }: TodoFormProps) => {
       className='relative'
     >
       <input
-        className='w-full rounded-md border-2 border-transparent bg-zinc-800 py-3 px-5 text-lg outline-none transition hover:border-indigo-600 focus:border-indigo-600'
+        className='inputsearch'
         placeholder='Add a new task...'
         value={input}
         onChange={(e) => setInput(e.target.value)}
