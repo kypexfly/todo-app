@@ -53,7 +53,7 @@ const TodoList = () => {
           All tasks {completedTodos.length}/{todos.length}
           <div className='my-2 h-1.5 w-full rounded-full bg-gray-700'>
             <div
-              className='h-1.5 rounded-full bg-indigo-500'
+              className='h-1.5 rounded-full bg-gradient-to-r from-indigo-700 to-blue-500'
               style={{ width: `${(completedTodos.length / todos.length) * 100}%` }}
             ></div>
           </div>
