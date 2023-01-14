@@ -25,9 +25,38 @@ a {
   underline decoration-indigo-600 decoration-2 underline-offset-2;
 }
 
-.inputsearch {
-  @apply w-full rounded-md border-2 border-transparent bg-zinc-800 py-3 px-5 text-lg 
-  outline-none transition hover:border-indigo-800 focus:border-indigo-600 focus:shadow-2xl focus:shadow-indigo-500/50 focus:transition;
+.header {
+  @apply rounded-md px-2 py-10 text-center;
+}
+
+.footer {
+  @apply w-full bg-zinc-800 p-2 text-center;
+}
+
+/* Todo styling */
+@layer components {
+  .todo_list__header {
+    @apply flex flex-wrap justify-between gap-6 border-b border-zinc-700/50 p-3 transition first:hover:rounded-t-md last:hover:rounded-b-md;
+  }
+  .todo_list__container {
+    @apply mt-5 mb-20 list-none rounded-md;
+  }
+  .todo_item {
+    @apply flex justify-between border-b border-zinc-700/50 p-3  hover:bg-zinc-700;
+  }
+  .todo_item__child {
+    @apply flex items-center gap-3;
+  }
+  .todo_item--empty {
+    @apply flex list-none justify-center border-b border-zinc-700/50 p-3 
+    last:border-none first:hover:rounded-t-md last:hover:rounded-b-md;
+  }
+
+  .todo_search {
+    @apply w-full rounded-md border-2 border-transparent bg-zinc-800 py-3 px-5 text-lg 
+  outline-none transition hover:border-indigo-800 focus:border-indigo-600 focus:shadow-2xl 
+  focus:shadow-indigo-500/50 focus:transition;
+  }
 }
 
 /* React select styling */

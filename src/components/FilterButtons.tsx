@@ -13,21 +13,21 @@ const FilterButtons = ({ filter, handleSetFilter }: FilterButtonsProps) => {
         <button
           name='all'
           onClick={handleSetFilter}
-          className={filter === 'all' ? 'active' : undefined}
+          className={filter === 'all' ? 'active' : ''}
         >
           All
         </button>
         <button
           name='completed'
           onClick={handleSetFilter}
-          className={filter === 'completed' ? 'active' : undefined}
+          className={filter === 'completed' ? 'active' : ''}
         >
           Completed
         </button>
         <button
           name='active'
           onClick={handleSetFilter}
-          className={filter === 'active' ? 'active' : undefined}
+          className={filter === 'active' ? 'active' : ''}
         >
           Active
         </button>

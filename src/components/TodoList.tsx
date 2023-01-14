@@ -14,10 +14,10 @@ const TodoList = () => {
   // Local states
   const [filter, setFilter] = useState<FilterState>('all')
   const [sort, setSort] = useState<SortState>('new')
-
-  const completedTodos = todos.filter((todo) => todo.completed)
-
   const handleSetFilter = (e: MouseEvent<HTMLButtonElement>) => setFilter(e.currentTarget.name)
+
+  // Computed values
+  const completedTodos = todos.filter((todo) => todo.completed)
 
   const filteredTodos = todos.filter((todo) => {
     if (filter === 'completed') return todo.completed
@@ -38,7 +38,7 @@ const TodoList = () => {
   ]
 
   return (
-    <div className='mt-5 mb-20 rounded-md'>
+    <div className='todo_list__container'>
       <Select
         className='rs-container'
         classNamePrefix='rs'
@@ -48,7 +48,7 @@ const TodoList = () => {
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         onChange={(option) => setSort(option!.value)}
       />
-      <li className='flex list-none flex-wrap justify-between gap-6 border-b border-zinc-700/50 p-3 transition last:border-none first:hover:rounded-t-md last:hover:rounded-b-md'>
+      <header className='todo_list__header'>
         <span className='flex-1 basis-40'>
           All tasks {completedTodos.length}/{todos.length}
           <div className='my-2 h-1.5 w-full rounded-full bg-gray-700'>
@@ -60,25 +60,36 @@ const TodoList = () => {
         </span>
 
         <FilterButtons filter={filter} handleSetFilter={handleSetFilter} />
-      </li>
-      {todos.length === 0 ? (
-        <li className='flex list-none justify-center border-b border-zinc-700/50 p-3 transition last:border-none first:hover:rounded-t-md last:hover:rounded-b-md'>
-          📃 No tasks!
-        </li>
-      ) : null}
-      <AnimatePresence>
-        {sortedTodos.map((todo) => (
-          <motion.div
-            key={todo.id}
-            layout
-            initial={{ transform: 'scale(0)' }}
-            animate={{ transform: 'scale(1)' }}
-            exit={{ transform: 'scale(0)' }}
-          >
-            <TodoItem todo={todo} />
-          </motion.div>
-        ))}
-      </AnimatePresence>
+      </header>
+      <div className='todo_list__body'>
+        <AnimatePresence>
+          {todos.length === 0 && (
+            <motion.li
+              layout
+              initial={{ transform: 'scale(0)' }}
+              animate={{ transform: 'scale(1)' }}
+              exit={{ transform: 'scale(0)' }}
+              className='todo_item--empty'
+            >
+              📃 No tasks!
+            </motion.li>
+          )}
+          {sortedTodos.map((todo) => {
+            return (
+              <motion.li
+                key={todo.id}
+                layout
+                className='todo_item'
+                initial={{ transform: 'scale(0)' }}
+                animate={{ transform: 'scale(1)' }}
+                exit={{ transform: 'scale(0)' }}
+              >
+                <TodoItem todo={todo} />
+              </motion.li>
+            )
+          })}
+        </AnimatePresence>
+      </div>
     </div>
   )
 }
