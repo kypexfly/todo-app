@@ -1,4 +1,5 @@
 import { formatDistance } from 'date-fns'
+import { useRef, useState } from 'react'
 import { toast } from 'react-toastify'
 import { Circle, CircleCheck, ClockHour4, Star, X } from 'tabler-icons-react'
 import { Todo } from '../store/types'
@@ -6,10 +7,24 @@ import useAppStore from '../store/useStore'
 
 const TodoItem = ({ todo }: { todo: Todo }) => {
   const deleteTodo = useAppStore((state) => state.deleteTodo)
+  const [isEditing, setIsEditing] = useState<boolean>(false)
+  const [input, setInput] = useState<string>('')
   const toggleProperty = useAppStore((state) => state.toggleProperty)
+  const updateProperty = useAppStore((state) => state.updateProperty)
   const handleDeleteTodo = (id: number) => {
     deleteTodo(id)
     toast.info('Deleted task')
+  }
+  const handleUpdateProperty = (
+    e: React.FormEvent<HTMLFormElement>,
+    id: number,
+    property: 'body',
+    newValue: string,
+  ) => {
+    e.preventDefault()
+    updateProperty(id, property, newValue)
+    setIsEditing(false)
+    toast.info('Task updated successfully')
   }
 
   const { id, body, completed, favorite } = todo
@@ -26,12 +41,35 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
               onClick={() => toggleProperty(id, 'completed')}
             />
           ) : (
-            <Circle className='text-zinc-600 hover:text-zinc-500' onClick={() => toggleProperty(id, 'completed')} />
+            <Circle
+              className='text-zinc-600 hover:text-zinc-500'
+              onClick={() => toggleProperty(id, 'completed')}
+            />
           )}
         </button>
         <div className='flex-1'>
-          <p className={completed ? 'text-zinc-500 line-through' : undefined}>{body}</p>
-          <small className='text-zinc-500'>
+          {isEditing ? (
+            <form onSubmit={(e) => handleUpdateProperty(e, id, 'body', input)}>
+              <input
+                type='text'
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                className='w-full bg-transparent focus:outline-none border-b border-blue-500'
+              />
+            </form>
+          ) : (
+            <p
+              className={completed ? 'cursor-pointer text-zinc-500 line-through' : undefined}
+              onClick={() => {
+                setIsEditing(true)
+                setInput(body)
+                toast.info('Editing task...')
+              }}
+            >
+              {body}
+            </p>
+          )}
+          <small className='inline-block align-middle text-zinc-500'>
             <ClockHour4 className='inline' size={16} /> {timeAgo}
           </small>
         </div>

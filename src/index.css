@@ -42,7 +42,7 @@ a {
     @apply mt-5 mb-20 list-none rounded-md;
   }
   .todo_item {
-    @apply flex justify-between border-b border-zinc-700/50 p-3  hover:bg-zinc-700;
+    @apply flex justify-between border-b border-zinc-700/50 p-3  hover:bg-zinc-700 gap-2;
   }
   .todo_item__child {
     @apply flex items-center gap-3;
