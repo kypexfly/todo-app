@@ -59,7 +59,7 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
             </form>
           ) : (
             <p
-              className={completed ? 'cursor-pointer text-zinc-500 line-through' : undefined}
+              className={completed ? 'cursor-pointer text-zinc-500 line-through' : 'cursor-pointer'}
               onClick={() => {
                 setIsEditing(true)
                 setInput(body)
