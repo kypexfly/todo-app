@@ -7,6 +7,7 @@ interface AppState {
   addTodo: (newTodo: Todo) => void
   deleteTodo: (id: number) => void
   toggleProperty: (id: number, property: 'favorite' | 'completed') => void
+  updateProperty: (id: number, property: 'body' | 'id', newValue: number | string) => void
 }
 
 const initialState: Todo[] = [
@@ -46,6 +47,13 @@ const useAppStore = create(
       toggleProperty: (id: number, property: 'favorite' | 'completed') => {
         const updatedTodos = useAppStore.getState().todos.map((todo) => {
           if (todo.id === id) return { ...todo, [property]: !todo[property] }
+          return todo
+        })
+        set({ todos: updatedTodos })
+      },
+      updateProperty: (id: number, property: 'id' | 'body', newValue: number | string) => {
+        const updatedTodos = useAppStore.getState().todos.map((todo) => {
+          if (todo.id === id) return { ...todo, [property]: newValue }
           return todo
         })
         set({ todos: updatedTodos })
