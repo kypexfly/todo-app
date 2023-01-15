@@ -1,7 +1,7 @@
 import { formatDistance } from 'date-fns'
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import { toast } from 'react-toastify'
-import { Circle, CircleCheck, ClockHour4, Star, X } from 'tabler-icons-react'
+import { Check, Circle, CircleCheck, ClockHour4, PencilOff, Star, X } from 'tabler-icons-react'
 import { Todo } from '../store/types'
 import useAppStore from '../store/useStore'
 
@@ -54,8 +54,21 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
                 type='text'
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                className='w-full bg-transparent focus:outline-none border-b border-blue-500'
+                className='w-full border-b border-blue-500 bg-transparent focus:outline-none'
               />
+              {/* Edit buttons */}
+              <div className='flex items-center justify-center gap-2'>
+                <button
+                  className='flex items-center gap-2'
+                  type='button'
+                  onClick={() => setIsEditing(false)}
+                >
+                  <PencilOff size={14} /> Cancel
+                </button>
+                <button className='flex items-center gap-2' type='submit'>
+                  <Check size={14} /> Save
+                </button>
+              </div>
             </form>
           ) : (
             <p
