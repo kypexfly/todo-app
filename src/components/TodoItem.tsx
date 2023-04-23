@@ -27,7 +27,7 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
     toast.info('Task updated successfully')
   }
 
-  const { id, body, completed, favorite } = todo
+  const { id, body, completed, important } = todo
 
   const timeAgo = formatDistance(new Date(todo.id), new Date(), { addSuffix: true })
 
@@ -93,9 +93,9 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
         </button>
         <button type='button' title='Important'>
           <Star
-            onClick={() => toggleProperty(id, 'favorite')}
+            onClick={() => toggleProperty(id, 'important')}
             size={22}
-            className={favorite ? 'fill-yellow-500 text-yellow-500' : ''}
+            className={important ? 'fill-yellow-500 text-yellow-500' : ''}
           />
         </button>
       </div>

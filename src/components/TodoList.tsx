@@ -1,28 +1,33 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import { MouseEvent, useState } from 'react'
-import Select from 'react-select'
+import { useParams } from 'react-router-dom'
 import useAppStore from '../store/useStore'
-import FilterButtons from './FilterButtons'
+import Select from 'react-select'
 import TodoItem from './TodoItem'
+import { useState } from 'react'
 
-export type FilterState = 'all' | 'completed' | 'active' | 'favorite' | string
+export type FilterState = 'all' | 'completed' | 'uncompleted' | 'important' | string
 export type SortState = 'new' | 'old' | 'completed' | 'active' | string
 
 const TodoList = () => {
   const todos = useAppStore((state) => state.todos)
+  const { filter } = useParams()
+
+  if (![undefined, 'completed', 'uncompleted', 'important'].includes(filter as string)) {
+    throw new Error('Invalid filter')
+  }
 
   // Local states
-  const [filter, setFilter] = useState<FilterState>('all')
+  // const [filter, setFilter] = useState<FilterState>('all')
   const [sort, setSort] = useState<SortState>('new')
-  const handleSetFilter = (e: MouseEvent<HTMLButtonElement>) => setFilter(e.currentTarget.name)
+  // const handleSetFilter = (e: MouseEvent<HTMLButtonElement>) => setFilter(e.currentTarget.name)
 
   // Computed values
   const completedTodos = todos.filter((todo) => todo.completed)
 
   const filteredTodos = todos.filter((todo) => {
     if (filter === 'completed') return todo.completed
-    if (filter === 'active') return todo.completed === false
-    if (filter === 'favorite') return todo.favorite === true
+    if (filter === 'uncompleted') return !todo.completed
+    if (filter === 'important') return todo.important
     return todo
   })
 
@@ -58,8 +63,6 @@ const TodoList = () => {
             ></div>
           </div>
         </span>
-
-        <FilterButtons filter={filter} handleSetFilter={handleSetFilter} />
       </header>
       <div>
         <AnimatePresence>
@@ -83,7 +86,7 @@ const TodoList = () => {
                 layout
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
+                exit={{ opacity: 0 }}
               >
                 <TodoItem todo={todo} />
               </motion.li>
