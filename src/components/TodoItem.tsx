@@ -27,13 +27,13 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
     toast.info('Task updated successfully')
   }
 
-  const { id, body, completed, favorite } = todo
+  const { id, body, completed, important } = todo
 
   const timeAgo = formatDistance(new Date(todo.id), new Date(), { addSuffix: true })
 
   return (
-    <>
-      <div className='todo_item__child flex-1'>
+    <div className='flex justify-between gap-2 border-b border-zinc-700/50  p-3 hover:bg-zinc-700/25'>
+      <div className='flex flex-1 items-center gap-3'>
         <button type='button' title={completed ? 'Unmark completed' : 'Mark completed'}>
           {completed ? (
             <CircleCheck
@@ -87,19 +87,19 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
           </small>
         </div>
       </div>
-      <div className='todo_item__child'>
+      <div className='flex items-center gap-3'>
         <button type='button' title='Delete'>
           <X size={22} className='hover:text-red-500' onClick={() => handleDeleteTodo(id)} />
         </button>
         <button type='button' title='Important'>
           <Star
-            onClick={() => toggleProperty(id, 'favorite')}
+            onClick={() => toggleProperty(id, 'important')}
             size={22}
-            className={favorite ? 'fill-yellow-500 text-yellow-500' : ''}
+            className={important ? 'fill-yellow-500 text-yellow-500' : ''}
           />
         </button>
       </div>
-    </>
+    </div>
   )
 }
 
