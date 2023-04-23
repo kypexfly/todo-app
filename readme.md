@@ -16,7 +16,7 @@ To-Do App with React JS, TypeScript and Tailwind CSS.
 * Shows the time that has passed since the task was created.
 * Completed tasks are displayed to the user as a progress bar.
 * Sort by newest or oldest.
-* Filter tasks by completion, importance, or active.
+* Filter tasks by completed, uncompleted and important.
 * Tasks are saved in local storage.
 
 ## 🔩 Tools
