@@ -32,8 +32,8 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
   const timeAgo = formatDistance(new Date(todo.id), new Date(), { addSuffix: true })
 
   return (
-    <>
-      <div className='todo_item__child flex-1'>
+    <div className='flex justify-between gap-2 border-b border-zinc-700/50  p-3 hover:bg-zinc-700/25'>
+      <div className='flex flex-1 items-center gap-3'>
         <button type='button' title={completed ? 'Unmark completed' : 'Mark completed'}>
           {completed ? (
             <CircleCheck
@@ -87,7 +87,7 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
           </small>
         </div>
       </div>
-      <div className='todo_item__child'>
+      <div className='flex items-center gap-3'>
         <button type='button' title='Delete'>
           <X size={22} className='hover:text-red-500' onClick={() => handleDeleteTodo(id)} />
         </button>
@@ -99,7 +99,7 @@ const TodoItem = ({ todo }: { todo: Todo }) => {
           />
         </button>
       </div>
-    </>
+    </div>
   )
 }
 

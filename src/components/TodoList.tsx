@@ -38,7 +38,7 @@ const TodoList = () => {
   ]
 
   return (
-    <div className='todo_list__container'>
+    <div className='mt-5 mb-20 list-none rounded-md'>
       <Select
         className='rs-container'
         classNamePrefix='rs'
@@ -48,7 +48,7 @@ const TodoList = () => {
         // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
         onChange={(option) => setSort(option!.value)}
       />
-      <header className='todo_list__header'>
+      <header className='flex flex-wrap justify-between gap-6 border-b border-zinc-700/50 p-3 transition first:hover:rounded-t-md last:hover:rounded-b-md'>
         <span className='flex-1 basis-40'>
           All tasks {completedTodos.length}/{todos.length}
           <div className='my-2 h-1.5 w-full rounded-full bg-gray-700'>
@@ -61,17 +61,19 @@ const TodoList = () => {
 
         <FilterButtons filter={filter} handleSetFilter={handleSetFilter} />
       </header>
-      <div className='todo_list__body'>
+      <div>
         <AnimatePresence>
           {todos.length === 0 && (
             <motion.li
               layout
+              key='empty'
               initial={{ transform: 'scale(0)' }}
               animate={{ transform: 'scale(1)' }}
-              exit={{ transform: 'scale(0)' }}
-              className='todo_item--empty'
+              exit={{ opacity: 0 }}
             >
-              📃 No tasks!
+              <div className='flex list-none justify-center border-b border-zinc-700/50 p-3 last:border-none first:hover:rounded-t-md last:hover:rounded-b-md'>
+                📃 No tasks!
+              </div>
             </motion.li>
           )}
           {sortedTodos.map((todo) => {
@@ -79,10 +81,9 @@ const TodoList = () => {
               <motion.li
                 key={todo.id}
                 layout
-                className='todo_item'
-                initial={{ transform: 'scale(0)' }}
-                animate={{ transform: 'scale(1)' }}
-                exit={{ transform: 'scale(0)' }}
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
               >
                 <TodoItem todo={todo} />
               </motion.li>

@@ -4,6 +4,7 @@ import 'react-toastify/dist/ReactToastify.css'
 import { Plus } from 'tabler-icons-react'
 import { Todo } from '../store/types'
 import useAppStore from '../store/useStore'
+import Input from './ui/Input'
 
 const TodoForm = () => {
   const addTodo = useAppStore((state) => state.addTodo)
@@ -27,8 +28,7 @@ const TodoForm = () => {
 
   return (
     <form onSubmit={(e) => handleAddTodo(e)} className='relative'>
-      <input
-        className='todo_search'
+      <Input
         placeholder='Add a new task...'
         value={input}
         onChange={(e) => setInput(e.target.value)}

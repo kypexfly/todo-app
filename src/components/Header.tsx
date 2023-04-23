@@ -1,6 +1,6 @@
 const Header = () => {
   return (
-    <header className='header'>
+    <header className='rounded-md px-2 py-10 text-center'>
       <h1 className='mb-4 text-4xl font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-6xl'>
         React To-do App
       </h1>
