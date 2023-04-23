@@ -65,7 +65,7 @@ function Navbar() {
 
 function Sidebar() {
   return (
-    <nav className='top-0 left-0 hidden h-screen w-[300px] border-r border-zinc-800 md:fixed md:block'>
+    <nav className='top-0 left-0 hidden h-screen w-[300px] border-r border-zinc-800 md:fixed md:block overflow-y-auto'>
       <Header />
       <ul>
         <NavItem to='/'>
