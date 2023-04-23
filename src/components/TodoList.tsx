@@ -17,9 +17,7 @@ const TodoList = () => {
   }
 
   // Local states
-  // const [filter, setFilter] = useState<FilterState>('all')
   const [sort, setSort] = useState<SortState>('new')
-  // const handleSetFilter = (e: MouseEvent<HTMLButtonElement>) => setFilter(e.currentTarget.name)
 
   // Computed values
   const completedTodos = todos.filter((todo) => todo.completed)
@@ -37,13 +35,12 @@ const TodoList = () => {
   })
 
   const sortOptions = [
-    { value: 'new', label: 'Sort by', isDisabled: true },
-    { value: 'new', label: 'New' },
+    { value: 'new', label: 'New', default: true },
     { value: 'old', label: 'Old' },
   ]
 
   return (
-    <div className='mt-5 mb-20 list-none rounded-md'>
+    <div className='mt-5 mb-20 list-none rounded-md grow'>
       <Select
         className='rs-container'
         classNamePrefix='rs'
@@ -56,11 +53,13 @@ const TodoList = () => {
       <header className='flex flex-wrap justify-between gap-6 border-b border-zinc-700/50 p-3 transition first:hover:rounded-t-md last:hover:rounded-b-md'>
         <span className='flex-1 basis-40'>
           All tasks {completedTodos.length}/{todos.length}
-          <div className='my-2 h-1.5 w-full rounded-full bg-gray-700'>
-            <div
+          <div className='my-2 h-1.5 w-full rounded-full bg-gray-700 overflow-hidden'>
+            <motion.div
               className='h-1.5 rounded-full bg-gradient-to-r from-indigo-700 to-blue-500'
-              style={{ width: `${(completedTodos.length / todos.length) * 100}%` }}
-            ></div>
+              initial={{ width: `${(completedTodos.length / todos.length) * 100}%` }}
+              animate={{ width: `${(completedTodos.length / todos.length) * 100}%` }}
+              transition={{ bounce: 0.3, type: 'spring', duration: 0.1, stiffness: 100 }}
+            ></motion.div>
           </div>
         </span>
       </header>
@@ -86,7 +85,7 @@ const TodoList = () => {
                 layout
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0 }}
+                exit={{ opacity: 0, height: 0 }}
               >
                 <TodoItem todo={todo} />
               </motion.li>

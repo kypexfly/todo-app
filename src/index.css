@@ -19,10 +19,6 @@ a {
   @apply inline-flex items-center font-medium text-indigo-500 underline decoration-indigo-600 decoration-2 underline-offset-2 hover:no-underline;
 }
 
-.active {
-  @apply inline-flex items-center font-medium text-white underline decoration-white decoration-2 underline-offset-2;
-}
-
 /* React select styling */
 @layer components {
   .rs-container {
@@ -30,7 +26,7 @@ a {
   }
 
   .rs-container .rs__control {
-    @apply border-2 bg-zinc-800 hover:border-indigo-800;
+    @apply border-2 bg-zinc-800 hover:border-indigo-800 border-zinc-800;
   }
 
   .rs-container .rs__control--is-focused {

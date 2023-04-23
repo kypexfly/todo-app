@@ -1,8 +1,11 @@
-import { NavLink, Outlet, createBrowserRouter } from 'react-router-dom'
+import { NavLink, Outlet, To, createBrowserRouter } from 'react-router-dom'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import App from './App'
 import { Footer, Header } from './components'
+import { ComponentPropsWithoutRef } from 'react'
+import { clsxm } from './utils/clsxm'
+import { Circle, CircleCheck, List, Star } from 'tabler-icons-react'
 
 export const router = createBrowserRouter([
   {
@@ -25,37 +28,77 @@ export default router
 
 function Layout() {
   return (
-    <div className='App flex min-h-screen flex-col'>
-      <Header />
+    <>
       <Sidebar />
-      <main className='mx-auto w-full max-w-[740px] grow p-3 lg:p-0'>
-        <Outlet />
-      </main>
-      <ToastContainer position='bottom-right' theme='dark' />
-      <Footer />
-    </div>
+      <div className='App absolute top-0 right-0 flex min-h-screen w-full flex-col bg-zinc-900 md:w-[calc(100%-300px)]'>
+        <Navbar />
+        <main className='mx-auto w-full grow p-3 lg:p-6'>
+          <Outlet />
+        </main>
+        <ToastContainer position='bottom-right' theme='dark' />
+        <Footer />
+      </div>
+    </>
+  )
+}
+
+function Navbar() {
+  return (
+    <nav className='block md:hidden bg-zinc-800'>
+      <ul className='flex [&>*]:flex-1'>
+        <NavItem to='/'>
+          <List />
+        </NavItem>
+        <NavItem to='/important'>
+          <Star />
+        </NavItem>
+        <NavItem to='/uncompleted'>
+          <Circle />
+        </NavItem>
+        <NavItem to='/completed'>
+          <CircleCheck />
+        </NavItem>
+      </ul>
+    </nav>
   )
 }
 
 function Sidebar() {
   return (
-    <nav className='fixed top-0 left-0 h-screen w-[200px] bg-zinc-800'>
+    <nav className='top-0 left-0 hidden h-screen w-[300px] border-r border-zinc-800 md:fixed md:block'>
+      <Header />
       <ul>
-        <li>
-          <NavLink className={({ isActive }) => (isActive ? 'active' : '')} to='/'>
-            All tasks
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to='/important'>Important tasks</NavLink>
-        </li>
-        <li>
-          <NavLink to='/uncompleted'>Uncompleted tasks</NavLink>
-        </li>
-        <li>
-          <NavLink to='/completed'>Completed tasks</NavLink>
-        </li>
+        <NavItem to='/'>
+          <List /> All tasks
+        </NavItem>
+        <NavItem to='/important'>
+          <Star /> Important tasks
+        </NavItem>
+        <NavItem to='/uncompleted'>
+          <Circle /> Uncompleted tasks
+        </NavItem>
+        <NavItem to='/completed'>
+          <CircleCheck /> Completed tasks
+        </NavItem>
       </ul>
     </nav>
+  )
+}
+
+function NavItem({ children, to, ...props }: ComponentPropsWithoutRef<'li'> & { to: To }) {
+  return (
+    <li {...props}>
+      <NavLink
+        className={({ isActive }) =>
+          clsxm(
+            'flex items-center justify-center gap-2 px-2 py-3 no-underline',
+            isActive && 'bg-indigo-600 text-white ',
+          )
+        }
+        to={to}
+      >
+        {children}
+      </NavLink>
+    </li>
   )
 }

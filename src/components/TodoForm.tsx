@@ -16,7 +16,7 @@ const TodoForm = () => {
       id: Date.now(),
       body: input,
       completed: false,
-      favorite: false,
+      important: false,
     }
     if (todo.body === '') {
       toast.warn('Empty, please write a task')
