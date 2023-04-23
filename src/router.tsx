@@ -44,7 +44,7 @@ function Layout() {
 
 function Navbar() {
   return (
-    <nav className='block md:hidden bg-zinc-800'>
+    <nav className='block bg-zinc-800 md:hidden'>
       <ul className='flex [&>*]:flex-1'>
         <NavItem to='/'>
           <List />
@@ -65,7 +65,7 @@ function Navbar() {
 
 function Sidebar() {
   return (
-    <nav className='top-0 left-0 hidden h-screen w-[300px] border-r border-zinc-800 md:fixed md:block overflow-y-auto'>
+    <nav className='top-0 left-0 hidden h-screen w-[300px] overflow-y-auto border-r border-zinc-800 md:fixed md:block'>
       <Header />
       <ul>
         <NavItem to='/'>
@@ -91,7 +91,7 @@ function NavItem({ children, to, ...props }: ComponentPropsWithoutRef<'li'> & { 
       <NavLink
         className={({ isActive }) =>
           clsxm(
-            'flex items-center justify-center gap-2 px-2 py-3 no-underline',
+            'flex items-center justify-center gap-2 px-2 py-3 no-underline md:justify-start',
             isActive && 'bg-indigo-600 text-white ',
           )
         }
